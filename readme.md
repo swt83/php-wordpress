@@ -1,6 +1,6 @@
 # Wordpress for LaravelPHP #
 
-This package allows us to interface with any Wordpress installation via a RESTful API.  It requires the [JSON API plugin](http://wordpress.org/extend/plugins/json-api/).  Now we can build websites w/ Laravel while serving content from a remote Wordpress installation.
+This package allows us to interface with any Wordpress installation via a RESTful API.  It requires the [JSON API plugin](http://wordpress.org/extend/plugins/json-api/).  We can build websites w/ Laravel while serving content from a remote Wordpress installation.
 
 ## Installation ##
 
