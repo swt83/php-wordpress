@@ -16,7 +16,12 @@ Amend the bundles.php config file:
 ),
 ```
 
-Copy the ``config/wp-sample.php`` file and rename it to ``config/wp.php``.  Input the proper information.
+Copy the ``config/wp-sample.php`` file and rename it to ``config/wp.php``.  Input the proper information:
+
+```php
+'url' => 'http://mydomain.com/',
+'site_id' => null,
+```
 
 ## Usage ##
 
@@ -24,11 +29,7 @@ Use any method from the API, and pass optional params as a single array.
 
 ```php
 // get recent posts
-$params = array(
-	'count' => 10,
-	'page' => 2,
-);
-$posts = WP::get_recent_posts($params);
+$posts = WP::get_recent_posts(array('count'=>10, 'page'=>1));
 ```
 
 See the [API docs](http://wordpress.org/extend/plugins/json-api/other_notes/) for a list of allowable methods and associated params.
