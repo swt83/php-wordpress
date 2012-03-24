@@ -1,10 +1,10 @@
 # Wordpress for LaravelPHP #
 
-This package allows you to interface with any Wordpress installation via a RESTful API.  You will need to install the [JSON API plugin](http://wordpress.org/extend/plugins/json-api/).  This allows us to build websites w/ Laravel while serving content from a remote Wordpress installation.
+This package allows us to interface with any Wordpress installation via a RESTful API.  It requires the [JSON API plugin](http://wordpress.org/extend/plugins/json-api/).  Now we can build websites w/ Laravel while serving content from a remote Wordpress installation.
 
 ## Installation ##
 
-Amend your bundles.php config file:
+Amend the bundles.php config file:
 
 ```php
 'wordpress' => array(
@@ -16,7 +16,7 @@ Amend your bundles.php config file:
 ),
 ```
 
-Copy the ``config/wp-sample.php`` file and rename it to ``config/wp.php``.  Input the proper information regarding your Wordpress installation.
+Copy the ``config/wp-sample.php`` file and rename it to ``config/wp.php``.  Input the proper information.
 
 ## Usage ##
 
