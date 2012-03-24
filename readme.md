@@ -1,6 +1,6 @@
 # Wordpress for LaravelPHP #
 
-This package allows us to interface with any Wordpress installation via a RESTful API.  It requires the [JSON API plugin](http://wordpress.org/extend/plugins/json-api/).  We can build websites w/ Laravel while serving content from a remote Wordpress installation.
+This package allows you to interface with any Wordpress installation via a RESTful API.  It requires the [JSON API plugin](http://wordpress.org/extend/plugins/json-api/).  You can build websites w/ Laravel while serving content from a remote Wordpress installation.
 
 ## Installation ##
 
@@ -23,6 +23,16 @@ Copy the ``config/wp-sample.php`` file and rename it to ``config/wp.php``.  Inpu
 'site_id' => null,
 ```
 
+For multisite functionality, you to modify the Wordpress plugin itself.  In the ``json-api.php`` file add the following after the includes:
+
+```php
+// add multisite option
+if (isset($_GET['site_id']))
+{
+	switch_to_blog($_GET['site_id']);
+}
+```
+
 ## Usage ##
 
 Use any method from the API, and pass optional params as a single array:
@@ -33,7 +43,3 @@ $posts = WP::get_recent_posts(array('count'=>10, 'page'=>1));
 ```
 
 See the [API docs](http://wordpress.org/extend/plugins/json-api/other_notes/) for a full list of allowable methods and associated params.
-
-## Limitations ##
-
-For handling multisite installs, my understanding is that a custom change has to be made to the plugin itself.  I will post that information in this readme in the near future.

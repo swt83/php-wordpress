@@ -31,6 +31,9 @@ class WP
 		}
 		$url = rtrim($url, '&');
 		
+		// add multisite option
+		if ($site_id !== null) $url .= '&site_id='.urlencode($site_id);
+		
 		// connect to api
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $url);
