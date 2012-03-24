@@ -21,15 +21,14 @@ class WP
 		extract(Config::get('wordpress::wp'));
 	
 		// build url
-		$url .= '?json='.$method.'&';
+		$url .= '?json='.$method;
 		if (!empty($args))
 		{
 			foreach($args[0] as $key=>$value)
 			{
-				$url .= $key.'='.urlencode($value).'&';
+				$url .= '&'.$key.'='.urlencode($value);
 			}
 		}
-		$url = rtrim($url, '&');
 		
 		// add multisite option
 		if ($site_id !== null) $url .= '&site_id='.urlencode($site_id);
