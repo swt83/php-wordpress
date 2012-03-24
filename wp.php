@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * A LaravelPHP package for working w/ the Wordpress API.
+ *
+ * @package    Wordpress
+ * @version    1.0
+ * @author     Scott Travis <scott.w.travis@gmail.com>
+ * @link       http://github.com/swt83/laravel-wp
+ * @license    MIT License
+ */
+
 class WP
 {
 	/**
