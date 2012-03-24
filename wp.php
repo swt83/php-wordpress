@@ -3,17 +3,9 @@
 class WP
 {
 	/**
-	 * Magic method to execute all methods from JSON API.
+	 * Magic method to execute all methods for JSON API.
 	 */
 	public static function __callStatic($method, $args)
-	{
-		return self::curl($method, $args);
-	}
-	
-	/**
-	 * Curl method to execute queries.
-	 */
-	protected static function curl($method, $args)
 	{
 		// load config
 		extract(Config::get('wordpress::wp'));
