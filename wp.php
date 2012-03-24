@@ -12,9 +12,6 @@ class WP
 	
 	/**
 	 * Curl method to execute queries.
-	 *
-	 * @param	string	$method
-	 * @param	array	$args
 	 */
 	protected static function curl($method, $args)
 	{
