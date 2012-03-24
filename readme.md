@@ -23,7 +23,7 @@ Copy the ``config/wp-sample.php`` file and rename it to ``config/wp.php``.  Inpu
 'site_id' => null,
 ```
 
-For multisite functionality, you to modify the Wordpress plugin itself.  In the ``json-api.php`` file add the following after the includes:
+For multisite functionality, you have to modify the Wordpress plugin itself.  In the ``json-api.php`` file add the following after the includes:
 
 ```php
 // add multisite option
