@@ -25,14 +25,14 @@ Copy the ``config/wp-sample.php`` file and rename it to ``config/wp.php``.  Inpu
 
 ## Usage ##
 
-Use any method from the API, and pass optional params as a single array.
+Use any method from the API, and pass optional params as a single array:
 
 ```php
 // get recent posts
 $posts = WP::get_recent_posts(array('count'=>10, 'page'=>1));
 ```
 
-See the [API docs](http://wordpress.org/extend/plugins/json-api/other_notes/) for a list of allowable methods and associated params.
+See the [API docs](http://wordpress.org/extend/plugins/json-api/other_notes/) for a full list of allowable methods and associated params.
 
 ## Limitations ##
 
