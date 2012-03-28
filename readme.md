@@ -4,25 +4,6 @@ This package allows you to interface with any Wordpress installation via a RESTf
 
 ## Installation ##
 
-Amend the bundles.php config file:
-
-```php
-'wordpress' => array(
-    'autoloads' => array(
-        'map' => array(
-            'WP' => '(:bundle)/wp.php',
-        ),
-    ),
-),
-```
-
-Copy the ``config/wp-sample.php`` file and rename it to ``config/wp.php``.  Input the proper information:
-
-```php
-'url' => 'http://mydomain.com/',
-'site_id' => null,
-```
-
 For multisite functionality, you have to modify the Wordpress plugin itself.  In ``json-api.php`` add the following after the includes:
 
 ```php
