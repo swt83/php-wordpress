@@ -1,24 +1,20 @@
 <?php
 
 /**
- * A LaravelPHP package for working w/ the Wordpress API.
+ * A LaravelPHP package for working w/ Wordpress.
  *
  * @package    Wordpress
- * @version    1.0
  * @author     Scott Travis <scott.w.travis@gmail.com>
- * @link       http://github.com/swt83/laravel-wp
+ * @link       http://github.com/swt83/laravel-wordpress
  * @license    MIT License
  */
 
-class WP
+class Wordpress
 {
-	/**
-	 * Magic method to execute all methods for JSON API.
-	 */
 	public static function __callStatic($method, $args)
 	{
 		// load config
-		extract(Config::get('wordpress::wp'));
+		extract(Config::get('wordpress'));
 	
 		// build url
 		$url .= '?json='.$method;
@@ -42,7 +38,7 @@ class WP
 		
 		// return response
 		$result = @json_decode($response);
-		if ($result !== false and $result !== null)
+		if ($result)
 		{
 			return $result;
 		}

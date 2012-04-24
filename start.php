@@ -1,5 +1,5 @@
 <?php
 
 Autoloader::map(array(
-	'WP' => __DIR__.'/libraries/wp.php',
+	'Wordpress' => __DIR__.'/libraries/wordpress.php',
 ));
