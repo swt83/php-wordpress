@@ -17,21 +17,21 @@ class Wordpress
 		extract(Config::get('wordpress'));
 	
 		// build url
-		$url .= '?json='.$method;
+		$api_endpoint .= '?json='.$method;
 		if (!empty($args))
 		{
 			foreach($args[0] as $key=>$value)
 			{
-				$url .= '&'.$key.'='.urlencode($value);
+				$api_endpoint .= '&'.$key.'='.urlencode($value);
 			}
 		}
 		
 		// add multisite option
-		if ($site_id !== null) $url .= '&site_id='.urlencode($site_id);
+		if ($api_site_id !== null) $api_endpoint .= '&site_id='.urlencode($api_site_id);
 		
 		// connect to api
 		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_URL, $api_endpoint);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$response = curl_exec($ch);
 		curl_close($ch);

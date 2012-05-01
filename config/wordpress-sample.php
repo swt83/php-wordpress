@@ -2,7 +2,10 @@
 
 return array(
 
-	'url' => 'http://mydomain.com/', // trailing slash is important
-	'site_id' => null, // the site_id if you are using a multi-site network
+	// location of wordpress installation (keep trailing slash)
+	'api_endpoint' => 'http://mydomain.com/',
+	
+	// the optional multi-site id number
+	'api_site_id' => null,
 
 );
