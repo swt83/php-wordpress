@@ -36,6 +36,11 @@ class Wordpress
 		$response = curl_exec($ch);
 		curl_close($ch);
 		
+		// filter response (to prevent weird random characters from breaking)
+		$start = strpos($response, '{');
+		$stop = strrpos($response, '}');
+		$response = substr($response, $start, $stop - $start + 1);
+		
 		// return response
 		$result = @json_decode($response);
 		if ($result)
