@@ -10,31 +10,48 @@ In ``application/bundles.php`` add:
 'wordpress' => array('auto' => true),
 ```
 
+### Configuration ###
+
 Copy the sample config file to ``application/config/wordpress.php`` and input the proper information.
-
-### Multi-Site Functionality ###
-
-For multi-site functionality you have to modify the Wordpress JSON API plugin.  In ``json-api.php`` add the following after the includes:
-
-```php
-// add multisite option
-if (isset($_GET['site_id']))
-{
-	switch_to_blog($_GET['site_id']);
-}
-```
 
 ## Usage ##
 
-Use any API method and pass params as a single array:
+Use any API method and pass params as a single array.  Here are some common API requests you might make:
+
+### Example Page ###
 
 ```php
-// get recent posts
-$posts = Wordpress::get_recent_posts(array('count'=>10, 'page'=>1));
+$posts = Wordpress::get_page(array(
+	'post_type' => 'page',
+	'slug' => 'about',
+));
 ```
 
-See the [API docs](http://wordpress.org/extend/plugins/json-api/other_notes/) for a full list of methods.
+### Example Post ###
 
-## Recommendations ##
+```php
+$posts = Wordpress::get_post(array(
+	'post_type' => 'post',
+	'id' => 100,
+));
+```
 
-I recommend caching your API responses to prevent problems.
+### Example Recent Posts ###
+
+```php
+$posts = Wordpress::get_recent_posts(array(
+	'post_type' => 'post',
+	'count' => 10,
+	'page' => 1,
+));
+```
+
+See the [API docs](http://wordpress.org/extend/plugins/json-api/other_notes/) for a full list of available methods.
+
+## Notes ##
+
+The ``Wordpress`` class is built on top of the ``Wordpress\API`` class, and simply adds some caching and filtering features (as specified in your config file).  For straightup API calls and nothing else, use ``Wordpress\API``.
+
+### Edit Mode ###
+
+Caching results can cause frustration for users trying to see the immedate effect of their content changes.  To help with this issue, a user can enter and exit "edit mode" by pointing their browser to ``http://<DOMAIN>/wordpress`` and clicking the appropriate option.  Edit mode is governed by a simple ``Session::put('wordpress_edit_mode', true);`` variable, and thus is user specific.
