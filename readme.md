@@ -18,27 +18,20 @@ Copy the sample config file to ``application/config/wordpress.php`` and input th
 
 Use any API method and pass params as a single array.  Here are some common API requests you might make:
 
-### Example Page ###
-
 ```php
+// get a page
 $page = Wordpress::get_page(array(
 	'post_type' => 'page',
 	'slug' => 'about',
 ));
-```
 
-### Example Post ###
-
-```php
+// get a post
 $post = Wordpress::get_post(array(
 	'post_type' => 'post',
 	'id' => 100,
 ));
-```
 
-### Example Recent Posts ###
-
-```php
+// get recent posts
 $posts = Wordpress::get_recent_posts(array(
 	'post_type' => 'post',
 	'count' => 10,
