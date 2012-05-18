@@ -43,7 +43,7 @@ See the [API docs](http://wordpress.org/extend/plugins/json-api/other_notes/) fo
 
 ## Notes ##
 
-The ``Wordpress`` class is built on top of the ``Wordpress\API`` class, and simply adds some caching and filtering features (as specified in your config file).  For straightup API calls and nothing else, use ``Wordpress\API``.
+The ``Wordpress`` class is built on top of the ``Wordpress\API`` class, and simply adds some caching and filtering features (as specified in your config file).  For straightup API calls and nothing else, use ``Wordpress\API``.  Methods and paramaters are the same.
 
 ### Edit Mode ###
 
