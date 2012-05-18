@@ -21,7 +21,7 @@ Use any API method and pass params as a single array.  Here are some common API 
 ### Example Page ###
 
 ```php
-$posts = Wordpress::get_page(array(
+$page = Wordpress::get_page(array(
 	'post_type' => 'page',
 	'slug' => 'about',
 ));
@@ -30,7 +30,7 @@ $posts = Wordpress::get_page(array(
 ### Example Post ###
 
 ```php
-$posts = Wordpress::get_post(array(
+$post = Wordpress::get_post(array(
 	'post_type' => 'post',
 	'id' => 100,
 ));
