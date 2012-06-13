@@ -119,9 +119,17 @@ class Wordpress
 	 *
 	 * @param	array	@array
 	 */
-	public static function tags2keywords($array)
+	public static function tags2keywords($list)
 	{
-		return implode(',', $array);
+		// build
+		$keywords = '';
+		foreach ($list as $value)
+		{
+			$keywords .= $value->title.',';
+		}
+		
+		// return
+		return $keywords;
 	}
 	
 	/**
