@@ -12,7 +12,7 @@
 class Wordpress
 {
 	private static $filter = array();
-	
+
 	/**
 	 * Magic method for API calls, with filtering and caching.
 	 */
@@ -20,7 +20,7 @@ class Wordpress
 	{
 		// build hash for request
 		$hash = 'wordpress_'.md5($method.serialize($args));
-		
+
 		// check cache
 		$result = Cache::get($hash);
 
@@ -30,13 +30,13 @@ class Wordpress
 			// force null
 			$result = null;
 		}
-		
+
 		// if null...
 		if (!$result)
 		{
 			// request
 			$result = call_user_func_array(array('Wordpress\\API', $method), $args);
-			
+
 			// catch
 			if ($result)
 			{
@@ -49,10 +49,10 @@ class Wordpress
 						self::$filter['find'][] = $key;
 						self::$filter['replace'][] = $value;
 					}
-					
+
 					// recusively filter
 					$result = self::filter($result);
-					
+
 					// cache
 					Cache::put($hash, $result, Config::get('wordpress.cache.'.$method, 0));
 				}
@@ -67,12 +67,12 @@ class Wordpress
 				// fail
 				self::error();
 			}
-		
+
 		}
-		
+
 		return $result;
 	}
-	
+
 	/**
 	 * Recursive method for filtering content.
 	 *
@@ -86,7 +86,7 @@ class Wordpress
 			{
 				$object->$key = self::filter($value);
 			}
-			
+
 			// check for page or post, then add description and keywords
 			if (isset($object->page))
 			{
@@ -110,10 +110,10 @@ class Wordpress
 		{
 			return str_ireplace(self::$filter['find'], self::$filter['replace'], $object);
 		}
-		
+
 		return $object;
 	}
-	
+
 	/**
 	 * Helper function to convert array of tags into a keyword string.
 	 *
@@ -127,11 +127,11 @@ class Wordpress
 		{
 			$keywords .= $value->title.',';
 		}
-		
+
 		// return
 		return $keywords;
 	}
-	
+
 	/**
 	 * Helper function to convert an excerpt into a description string.
 	 *
@@ -141,12 +141,18 @@ class Wordpress
 	{
 		return strip_tags($string);
 	}
-	
+
 	/**
 	 * Helper function to make uniform error notices.
 	 */
 	private static function error()
 	{
-		trigger_error('Failed to get data from Wordpress.');
+		if (\Config::get('wordpress.show_errors') == TRUE)
+		{
+			trigger_error('Failed to get data from Wordpress.');
+			return;
+		}
+
+		return FALSE;
 	}
 }
