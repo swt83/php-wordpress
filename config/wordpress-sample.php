@@ -1,16 +1,16 @@
 <?php
 
 return array(
-	
+
 	/**
 	 * URL
 	 * ----
 	 * Set the location of your Wordpress installation.  Be sure
-	 * to include a trailing slash at the end, which for some 
+	 * to include a trailing slash at the end, which for some
 	 * reason is necessary.
 	 */
 	'url' => 'http://www.foobar.com/',
-	
+
 	/**
 	 * CACHE
 	 * ------
@@ -23,7 +23,7 @@ return array(
 		'get_post' => 10,
 		'get_recent_posts' => 10,
 	),
-	
+
 	/**
 	 * FILTER
 	 * -------
@@ -37,5 +37,8 @@ return array(
 		#'find' => 'replace',
 		#...
 	),
-	
+
+	'show_errors' => TRUE,
+
+
 );
