@@ -11,142 +11,102 @@
 
 class Wordpress
 {
-	private static $filter = array();
-	
-	/**
-	 * Magic method for API calls, with filtering and caching.
-	 */
-	public static function __callStatic($method, $args)
-	{
-		// build hash for request
-		$hash = 'wordpress_'.md5($method.serialize($args));
-		
-		// check cache
-		$result = Cache::get($hash);
 
-		// if in edit mode...
-		if (Session::get('wordpress_edit_mode'))
-		{
-			// force null
-			$result = null;
-		}
-		
-		// if null...
-		if (!$result)
-		{
-			// request
-			$result = call_user_func_array(array('Wordpress\\API', $method), $args);
-			
-			// catch
-			if ($result)
-			{
-				// if success...
-				if ($result->status !== 'error')
-				{
-					// prep filter
-					foreach (Config::get('wordpress.filter') as $key => $value)
-					{
-						self::$filter['find'][] = $key;
-						self::$filter['replace'][] = $value;
-					}
-					
-					// recusively filter
-					$result = self::filter($result);
-					
-					// cache
-					Cache::put($hash, $result, Config::get('wordpress.cache.'.$method, 0));
-				}
-				else
-				{
-					// fail
-					self::error();
-				}
-			}
-			else
-			{
-				// fail
-				self::error();
-			}
-		
-		}
-		
-		return $result;
-	}
-	
-	/**
-	 * Recursive method for filtering content.
-	 *
-	 * @param	object	$object
-	 */
-	private static function filter($object)
-	{
-		if (is_object($object))
-		{
-			foreach ($object as $key => $value)
-			{
-				$object->$key = self::filter($value);
-			}
-			
-			// check for page or post, then add description and keywords
-			if (isset($object->page))
-			{
-				$object->page->keywords = self::tags2keywords($object->page->tags);
-				$object->page->description = self::excerpt2description($object->page->excerpt);
-			}
-			elseif (isset($object->post))
-			{
-				$object->post->keywords = self::tags2keywords($object->post->tags);
-				$object->post->description = self::excerpt2description($object->post->excerpt);
-			}
-		}
-		elseif (is_array($object))
-		{
-			foreach ($object as $key => $value)
-			{
-				$object[$key] = self::filter($value);
-			}
-		}
-		else
-		{
-			return str_ireplace(self::$filter['find'], self::$filter['replace'], $object);
-		}
-		
-		return $object;
-	}
-	
-	/**
-	 * Helper function to convert array of tags into a keyword string.
-	 *
-	 * @param	array	@array
-	 */
-	public static function tags2keywords($list)
-	{
-		// build
-		$keywords = '';
-		foreach ($list as $value)
-		{
-			$keywords .= $value->title.',';
-		}
-		
-		// return
-		return $keywords;
-	}
-	
-	/**
-	 * Helper function to convert an excerpt into a description string.
-	 *
-	 * @param	string	$string
-	 */
-	public static function excerpt2description($string)
-	{
-		return strip_tags($string);
-	}
-	
-	/**
-	 * Helper function to make uniform error notices.
-	 */
-	private static function error()
-	{
-		trigger_error('Failed to get data from Wordpress.');
-	}
+    /**
+     * Magic method for API calls.
+     *
+     * @param   string  $method
+     * @param   array   $args
+     * @return  object
+     */
+    public static function __callStatic($method, $args)
+    {
+        // load url
+        $url = \Config::get('wordpress.url');
+
+        // catch error
+        if (!$url)
+        {
+            trigger_error('Wordpress configuration file not found.');
+        }
+        
+        // add query
+        $url .= '?json='.$method;
+        if (!empty($args))
+        {
+            foreach($args[0] as $key=>$value)
+            {
+                $url .= '&'.$key.'='.urlencode($value);
+            }
+        }
+
+        // if caching...
+        if (Config::get('wordpress.cache'))
+        {
+            // check cache
+            $hash = 'wp_'.md5($url);
+            $check = Cache::get($hash);
+            if ($check and !Session::get('wordpress_edit_mode'))
+            {
+                return $check;
+            }
+        }
+        
+        // connect to api
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        
+        // catch errors
+        if (curl_errno($ch))
+        {
+            #$errors = curl_error($ch);
+            curl_close($ch);
+
+            // fail
+            $result = false;
+        }
+        else
+        {
+            curl_close($ch);
+
+            // return
+            $result = json_decode($response);
+        }
+
+        // if caching...
+        if (Config::get('wordpress.cache'))
+        {
+            // cache result
+            Cache::put($hash, $result, Config::get('wordpress.cache'));
+        }
+
+        // return
+        return $result;
+    }
+
+    /**
+     * Filter string according to configuration definitions.
+     *
+     * @param   string  $string
+     * @return  string
+     */
+    public static function filter($string)
+    {
+        // build find/replace arrays
+        $find = array();
+        $replace = array();
+        $filters = Config::get('wordpress.filter');
+        foreach ($filters as $key => $value)
+        {
+            $find[] = $key;
+            $replace[] = $value;
+        }
+
+        // return filtered string
+        return str_ireplace($find, $replace, $string);
+    }
+
 }
