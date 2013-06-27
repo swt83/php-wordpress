@@ -43,7 +43,7 @@ See the [docs](http://wordpress.org/extend/plugins/json-api/other_notes/) for a 
 
 ## Filtering
 
-The package includes a simple filtering method to use as you will, such as patching URLS for media queries:
+The package includes an optional filtering method.  Example uses might be CDN tweaks to a URL:
 
 ```php
 $content = Wordpress::filter($content);
