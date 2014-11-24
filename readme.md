@@ -42,4 +42,4 @@ See the [documentation](https://wordpress.org/plugins/json-api/other_notes/) for
 
 ## Notes
 
-I know there is newer API out there, found [here](wp-api.org), but I can't get it working properly. Seems pretty buggy.
+I know there is newer API out there, found [here](http://wp-api.org), but I can't get it working properly.
