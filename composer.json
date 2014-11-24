@@ -1,0 +1,28 @@
+{
+    "name": "travis/wordpress",
+    "description": "A PHP library for working w/ the Wordpress API plugin.",
+    "homepage": "https://github.com/swt83/php-wordpress",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Scott Travis",
+            "email": "scott.w.travis@gmail.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/swt83/php-ex.git"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "travis/ex": "*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Travis\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
