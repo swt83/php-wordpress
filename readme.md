@@ -6,6 +6,14 @@ A PHP library for working w/ the [Wordpress API plugin](https://wordpress.org/pl
 
 Normal install via Composer.
 
+### Disable the Wordpress Site
+
+Since you are using the API, you should disable the Wordpress site itself. One way to do that is to open the ``index.php`` file in your Wordpress directory and add this code to the top:
+
+```php
+if (!isset($_GET['json'])) die();
+```
+
 ## Usage
 
 Call any API method and pass params as a single array:
