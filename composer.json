@@ -1,7 +1,7 @@
 {
     "name": "travis/wordpress",
     "description": "A PHP library for working w/ the Wordpress API plugin.",
-    "homepage": "https://github.com/swt83/php-wordpress",
+    "homepage": "https://bitbucket.org/swt83/php-wordpress",
     "license": "MIT",
     "authors": [
         {
@@ -12,7 +12,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/swt83/php-ex.git"
+            "url": "https://bitbucket.org/swt83/php-ex.git"
         }
     ],
     "require": {
