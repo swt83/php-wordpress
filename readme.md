@@ -6,9 +6,9 @@ A PHP library for working w/ the [Wordpress API plugin](https://wordpress.org/pl
 
 Normal install via Composer.
 
-### Disable the Wordpress Site
+### Disable the Public Side of Wordpress
 
-Since you are using the API, you should disable the Wordpress site itself. One way to do that is to open the ``index.php`` file in your Wordpress directory and add this code to the top:
+Since you are using the API, you should disable the public side of your Wordpress installation. One way to do that is to open the ``index.php`` file in your Wordpress directory and add this code to the top:
 
 ```php
 if (!isset($_GET['json'])) die();
@@ -47,7 +47,3 @@ $posts = Wordpress::get_recent_posts(array(
 You will need to include a ``url`` value in the payload that points to the address of your Wordpress installation. Be sure this address has an ending slash or you'll experience problems.
 
 See the [documentation](https://wordpress.org/plugins/json-api/other_notes/) for a full list of available methods.
-
-## Notes
-
-I know there is newer API out there, found [here](http://wp-api.org), but I can't get it working properly.
