@@ -7,21 +7,16 @@ class Wordpress {
     /**
      * Magic method for API calls.
      *
+     * @param   string  $url
+     * @param   string  $controller
      * @param   string  $method
      * @param   array   $args
      * @return  object
      */
-    public static function __callStatic($method, $args)
+    public static function run($url, $controller, $method, $args = [])
     {
-        // capture args
-        $args = isset($args[0]) ? $args[0] : array();
-
-        // set endpoint
-        $url = $args['url'];
-        unset($args['url']);
-
         // build query
-        $url .= '?json='.$method;
+        $url .= '?json='.$controller.'/'.$method;
         if (!empty($args))
         {
             foreach($args as $key => $value)
