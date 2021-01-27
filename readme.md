@@ -46,4 +46,4 @@ $posts = Wordpress::get_recent_posts(array(
 
 You will need to include a ``url`` value in the payload that points to the address of your Wordpress installation. Be sure this address has an ending slash or you'll experience problems.
 
-See the [documentation](https://wordpress.org/plugins/json-api/other_notes/) for a full list of available methods.
+See the [documentation](https://github.com/dphiffer/wp-json-api) for a full list of available methods.
